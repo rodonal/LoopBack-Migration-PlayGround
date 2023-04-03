@@ -14,6 +14,7 @@ const service_proxy_1 = require("@loopback/service-proxy");
 const morgan_1 = tslib_1.__importDefault(require("morgan"));
 const path_1 = tslib_1.__importDefault(require("path"));
 const sequence_1 = require("./sequence");
+const loopback4_migration_1 = require("loopback4-migration");
 class TodoListApplication extends (0, boot_1.BootMixin)((0, service_proxy_1.ServiceMixin)((0, repository_1.RepositoryMixin)(rest_1.RestApplication))) {
     constructor(options = {}) {
         super(options);
@@ -37,6 +38,14 @@ class TodoListApplication extends (0, boot_1.BootMixin)((0, service_proxy_1.Serv
             },
         };
         this.setupLogging();
+        // Configure migration component
+        // this.bind(MigrationBindings.CONFIG).to({
+        //   appVersion: '6.1.0',
+        //   dataSourceName: DbDataSource.dataSourceName,
+        //   modelName: 'ToDo',
+        //   //migrationScripts: [ChangeDescriptionMigration],
+        // });
+        this.component(loopback4_migration_1.MigrationComponent);
     }
     setupLogging() {
         // Register `morgan` express middleware

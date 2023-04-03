@@ -15,7 +15,9 @@ import {ServiceMixin} from '@loopback/service-proxy';
 import morgan from 'morgan';
 import path from 'path';
 import {MySequence} from './sequence';
-
+import {MigrationBindings, MigrationComponent} from 'loopback4-migration';
+import {DbDataSource} from './datasources';
+import {ChangeDescriptionMigration} from './migrations/6.1.0.migration';
 export {ApplicationConfig};
 
 export class TodoListApplication extends BootMixin(
@@ -48,6 +50,14 @@ export class TodoListApplication extends BootMixin(
     };
 
     this.setupLogging();
+    //Configure migration component
+    this.bind(MigrationBindings.CONFIG).to({
+      appVersion: '6.1.0',
+      dataSourceName: DbDataSource.dataSourceName,
+      modelName: 'ToDo',
+      //migrationScripts: [ChangeDescriptionMigration],
+    });
+    this.component(MigrationComponent);
   }
 
   private setupLogging() {
