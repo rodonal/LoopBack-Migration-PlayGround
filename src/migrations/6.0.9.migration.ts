@@ -5,7 +5,7 @@ import {TodoRepository} from '../repositories';
 
 @migrationScript()
 export class ChangeDescriptionMigration implements MigrationScript {
-  version = '6.1.0';
+  version = '6.0.9';
   scriptName = ChangeDescriptionMigration.name;
   dataSourceName = DbDataSource.dataSourceName;
   description =
